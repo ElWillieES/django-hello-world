@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  django-hello-world:
+    image: django-hello-world
+    container_name: django-hello-world
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "8000:8000"
+  nginx:
+    image: nginx:1.23.4
+    container_name: nginx
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ}
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
